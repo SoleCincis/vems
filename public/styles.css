@@ -1,0 +1,25 @@
+* {
+  background-color: #acdce0;
+}
+
+.welcome-container {
+  border: 2px solid gray;
+  background: #58b7ac;
+  padding: 20px;
+}
+
+.registration-container {
+  border: 2px solid gray;
+  background: #14c6d3;
+}
+
+.app-container {
+  border: 2px solid gray;
+  background: #58b7ac;
+  padding: 20px;
+}
+
+.profile-container {
+  border: 2px solid gray;
+  background: #14c6d3;
+}
