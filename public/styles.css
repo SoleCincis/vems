@@ -1,4 +1,4 @@
-* {
+ body {
   background-color: #acdce0;
 }
 
@@ -9,17 +9,47 @@
 }
 
 .registration-container {
-  border: 2px solid gray;
-  background: #14c6d3;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: #14c6d3;
 }
 
-.app-container {
-  border: 2px solid gray;
-  background: #58b7ac;
-  padding: 20px;
+
+
+header #profilePic {
+    width: 100px;
+     height: 100px;
+     object-fit: cover;
+     float: right;
+     cursor: pointer;
+     border-radius: 5px;
+     padding: 10px;
 }
 
-.profile-container {
-  border: 2px solid gray;
-  background: #14c6d3;
+.profile-container #profilePic {
+    width: 300px;
+
+
 }
+
+
+input {
+  display: block;
+  margin: inherit;
+  padding: 10px;
+  background: transparent;
+  border-radius: 3px;
+  font-size: 10px;
+}
+button {
+  padding: 10px;
+  background: transparent;
+  margin: 2px;
+  border-radius: 5px;
+  font-size: 10px;
+  border: 1px solid black;
+} */

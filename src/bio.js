@@ -31,31 +31,43 @@ export default class Bio extends React.Component {
       [e.target.name]: e.target.value
     });
   }
-  // talks with index.js , right?
+  // talks with index.js
   handleSubmit(e) {
     e.preventDefault();
-    const self = this;
+
     axios
       .post("/history/bio", this.state)
       .then(resp => {
         this.props.setBio(this.state.bio);
+        this.setState({
+          showEditor: false
+        });
       })
       .catch(err => console.log("error in bio: ", err));
   }
   render() {
-    return (
-      <div>
-        {this.props.bio}
-
-        <form onSubmit={this.handleSubmit}>
-          <textarea name="bio" onChange={this.handleChange} />
-          <button>save</button>
-        </form>
-
-        <button onClick={this.hideEditor}>hide B</button>
-        <button onClick={this.showEditor}>your bio</button>
-        <button onClick={this.showEditor}>edit your B</button>
-      </div>
-    );
+    if (this.state.showEditor) {
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <textarea
+              defaultValue={this.props.bio}
+              name="bio"
+              onChange={this.handleChange}
+            />
+            <button>save bio</button>
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {this.props.bio}
+          <button onClick={e => this.setState({ showEditor: true })}>
+            edit bio
+          </button>
+        </div>
+      );
+    }
   }
 }

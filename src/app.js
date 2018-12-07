@@ -50,16 +50,17 @@ export default class App extends React.Component {
   // #1 first it renders
   render() {
     return (
-      <div className="app-container">
-        <ProfilePic
-          size="small"
-          imgUrl={this.state.imgUrl}
-          first={this.state.first}
-          last={this.state.last}
-          showUploader={() => this.showUploader()}
-        />
+      <div>
+        <header>
+          <ProfilePic
+            imgUrl={this.state.imgUrl}
+            first={this.state.first}
+            last={this.state.last}
+            showUploader={() => this.showUploader()}
+          />
+        </header>
         <BrowserRouter>
-          <div className="profile-container">
+          <div>
             <Route
               exact
               path="/"
@@ -87,14 +88,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-// <div>
-//        <header>
-//            <Logo />
-//            <ProfilePic
-//                first={this.state.first}
-//                last={this.state.last}
-//                profilePicUrl={this.state.image ? this.state.image : "/default.jpg"}
-//                showUploader={this.showUploader}
-//            />
-//        </header>

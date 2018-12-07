@@ -2,12 +2,13 @@ import React from "react";
 import Registration from "./registration";
 import { HashRouter, Route } from "react-router-dom";
 import Login from "./login";
+import { Link } from "react-router-dom";
 
 // THIS IS A COMPONENT AND IS ALWAYS WITH CAPITAL LETTER
 export default function Welcome() {
   return (
     <div className="welcome-container">
-      <h1>Welcome!!!</h1>
+      <h1>V.E.M.S</h1>
       <HashRouter>
         <div>
           <Route exact path="/" component={Registration} />

@@ -44,10 +44,7 @@ export default class Registration extends React.Component {
   render() {
     return (
       <div className="registration-container">
-        <h1>registration</h1>
         {this.state.error && <div>error</div>}
-
-        <Link to="/login">click here to login!</Link>
 
         <form onSubmit={this.handleSubmit}>
           <input
@@ -76,6 +73,8 @@ export default class Registration extends React.Component {
           />
           <button>register</button>
         </form>
+
+        <Link to="/login">click here to login!</Link>
       </div>
     );
   }
