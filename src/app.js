@@ -6,6 +6,7 @@ import { BrowserRouter, Route } from "react-router-dom"; //BrowserRouter uses th
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
+import OtherProfile from "./opp";
 
 export default class App extends React.Component {
   constructor() {
@@ -58,6 +59,7 @@ export default class App extends React.Component {
             last={this.state.last}
             showUploader={() => this.showUploader()}
           />
+          <a href="/logout">logout</a>
         </header>
         <BrowserRouter>
           <div>
@@ -78,6 +80,7 @@ export default class App extends React.Component {
                 );
               }}
             />
+            <Route path="/user/:id" component={OtherProfile} />
           </div>
         </BrowserRouter>
 

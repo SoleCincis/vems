@@ -122,6 +122,11 @@ app.post("/login", (req, res) => {
       res.json({ success: false });
     });
 });
+//____________LOGOUT_____________
+app.get("/logout", (req, res) => {
+  req.session = null; //cancella i cookie completamente tutto cio che ho in sessionsi è cancellato
+  res.redirect("/welcome");
+});
 
 //_____________PROFILE____________
 //request to the server from componentDidMount
@@ -134,6 +139,20 @@ app.get("/user", (req, res) => {
       last: row.last,
       bio: row.bio,
       imgUrl: row.imgurl || "/lume.jpg" //scegli una foto
+    });
+  });
+});
+
+//__________OTHER _____________PROFILE____________
+app.get("/user/:id/profile", (req, res) => {
+  db.userProfile(req.params.id).then(row => {
+    console.log(row.first, row);
+    res.json({
+      userId: req.params.id,
+      first: row.first,
+      last: row.last,
+      bio: row.bio,
+      imgUrl: row.imgurl || "/lume.jpg" //
     });
   });
 });
@@ -172,8 +191,20 @@ app.post("/history/bio", (req, res) => {
 });
 
 //___________NEVER TOUCH THIS CODE!!!!_____________
+app.get("/welcome", function(req, res) {
+  if (req.session.userId) {
+    res.redirect("/");
+  } else {
+    res.sendFile(__dirname + "/index.html");
+  }
+});
+
 app.get("*", function(req, res) {
-  res.sendFile(__dirname + "/index.html");
+  if (!req.session.userId) {
+    res.redirect("/welcome");
+  } else {
+    res.sendFile(__dirname + "/index.html");
+  }
 });
 app.listen(8080, function() {
   console.log("I'm listening.");

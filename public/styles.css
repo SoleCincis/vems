@@ -20,7 +20,7 @@ header{
 
 
 
-header #profilePic {
+header .profilePic {
     width: 100px;
      height: 100px;
      object-fit: cover;
@@ -30,7 +30,7 @@ header #profilePic {
      padding: 10px;
 }
 
-.profile-container #profilePic {
+.profile-container .profilePic {
     width: 300px;
 
 
