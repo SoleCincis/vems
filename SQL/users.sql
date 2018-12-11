@@ -8,5 +8,5 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     imgUrl TEXT,
     bio TEXT,
-    createtime TIMESTAMP DEFAULT current_timestamp 
+    createtime TIMESTAMP DEFAULT current_timestamp
 );

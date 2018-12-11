@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const csurf = require("csurf");
@@ -43,14 +45,16 @@ app.use(compression());
 app.use(express.static("./public"));
 
 //____________COOKIE______________
-var cookieSession = require("cookie-session");
+const cookieSession = require("cookie-session");
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
 
-app.use(
-    cookieSession({
-        secret: "burek.",
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 // ___________SECURITY__________
 
@@ -157,7 +161,7 @@ app.get("/user/:id/profile", (req, res) => {
     });
 });
 
-//___________FIRENSHIP________
+//___________FIRENDSHIP_____________________
 app.get("/friends/status/:id", (req, res) => {
     db.friendStatus(req.params.id, req.session.userId)
         .then(row => {
@@ -214,6 +218,9 @@ app.post("/accept/friendRequest", (req, res) => {
             res.json({ success: false });
         });
 });
+app.get("/wannabes/friends", (req, res) => {
+    db.listFriend(req.session.userId).then(rows => res.json(rows));
+});
 
 //___________  UPLOAD IMG AMAZON , UPDATE DB ________________
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
@@ -264,6 +271,18 @@ app.get("*", function(req, res) {
         res.sendFile(__dirname + "/index.html");
     }
 });
-app.listen(8080, function() {
+// sostituisco app.listen con server.listen
+server.listen(8080, function() {
     console.log("I'm listening.");
+});
+
+//socket server code
+io.on("connection", socket => {
+    console.log(`user with socket id${socket.id} just connected`);
+    let userId = socket.request.session.userId;
+    let socketId = socket.id;
+    console.log("socket session info:", userId);
+    //2 arguments first is a name and must be a string
+    //second is any data that i want to send in my "message" using this method emit
+    socket.emit("catnip", "bellissimo");
 });

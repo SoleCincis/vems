@@ -101,7 +101,7 @@ exports.friendStatus = (id1, id2) => {
             return results.rows[0];
         });
 };
-
+//_____________REQUEST_________________
 exports.friendRequest = (receiverId, senderId) => {
     return db
         .query(
@@ -117,6 +117,7 @@ exports.friendRequest = (receiverId, senderId) => {
             return results.rows[0];
         });
 };
+//___________DELETE______________
 exports.deleteFriend = (id1, id2) => {
     return db
         .query(
@@ -130,6 +131,7 @@ exports.deleteFriend = (id1, id2) => {
             return results.rows[0];
         });
 };
+//_________ACCEPTED____________
 exports.acceptFriend = (id1, id2) => {
     return db
         .query(
@@ -143,5 +145,22 @@ exports.acceptFriend = (id1, id2) => {
         )
         .then(results => {
             return results.rows[0];
+        });
+};
+exports.listFriend = id => {
+    return db
+        .query(
+            `
+            SELECT users.id, first, last, imgUrl, accepted
+            FROM friendship
+            JOIN users
+            ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
+            OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
+            OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)
+        `,
+            [id]
+        )
+        .then(results => {
+            return results.rows;
         });
 };
