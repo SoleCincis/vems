@@ -10,8 +10,7 @@ export default function reducer(state = {}, action) {
             ...state,
             friendsWannabes: state.friendsWannabes.map(user => {
                 if (user.id == action.yesFriends) {
-                    user["accepted"] = true;
-                    return user;
+                    return { ...user, accepted: true };
                 } else {
                     return user;
                 }
@@ -28,5 +27,13 @@ export default function reducer(state = {}, action) {
             })
         };
     }
+
+    if (action.type == "LIST_ONLINE_USERS") {
+        state = {
+            ...state,
+            onlineUsers: action.onlineUsers
+        };
+    }
+
     return state;
 }

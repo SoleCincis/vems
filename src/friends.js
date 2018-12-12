@@ -52,6 +52,15 @@ class Friends extends React.Component {
                                 width="70"
                                 src={wannabe.imgUrl || "/lume.jpg"}
                             />
+                            <button
+                                onClick={e =>
+                                    this.props.dispatch(
+                                        acceptFriend(wannabe.id)
+                                    )
+                                }
+                            >
+                                accept
+                            </button>
                         </div>
                     );
                 })}

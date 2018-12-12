@@ -9,7 +9,7 @@ export async function getListOfFriendsAndWannabes() {
 }
 
 export async function deleteFriend(id) {
-    //const { data } = await axios.get("/delete/friendRequest");
+    const { data } = await axios.post("/delete/friendRequest", { id });
     return {
         type: "UNFRIEND",
         notfriends: id // ?????
@@ -17,9 +17,17 @@ export async function deleteFriend(id) {
 }
 
 export async function acceptFriend(id) {
-    await axios.post("/accept/friendRequest");
+    await axios.post("/accept/friendRequest", { id });
     return {
         type: "ACCEPT_FRIEND_REQUEST",
         yesFriends: id //????????????????
+    };
+}
+
+export async function onlineUsers(users) {
+    console.log(users);
+    return {
+        type: "LIST_ONLINE_USERS",
+        onlineUsers: users
     };
 }

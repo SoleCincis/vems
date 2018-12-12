@@ -164,3 +164,19 @@ exports.listFriend = id => {
             return results.rows;
         });
 };
+
+//________________ONLINE USERS_______________
+exports.getUsersIds = arrayOfIds => {
+    return db
+        .query(
+            `
+            SELECT id, first, last, imgUrl AS "imgUrl"
+            FROM users
+            WHERE id = ANY($1)
+            `,
+            [arrayOfIds]
+        )
+        .then(results => {
+            return results.rows;
+        });
+};

@@ -271,18 +271,42 @@ app.get("*", function(req, res) {
         res.sendFile(__dirname + "/index.html");
     }
 });
-// sostituisco app.listen con server.listen
+//______________END_____________________
+
+//  it's server, not app, that does the listening
 server.listen(8080, function() {
     console.log("I'm listening.");
 });
 
 //socket server code
+//send a message to all connected sockets,use emit method of the sockets object attached to io (io.sockets.emit)
+//2 arguments first is a name and must be a string
+//second is any data that i want to send in my "message" using this method emit
+let onlineUsers = {};
 io.on("connection", socket => {
-    console.log(`user with socket id${socket.id} just connected`);
-    let userId = socket.request.session.userId;
+    console.log(`User with socket id ${socket.id} just connected`);
     let socketId = socket.id;
-    console.log("socket session info:", userId);
-    //2 arguments first is a name and must be a string
-    //second is any data that i want to send in my "message" using this method emit
-    socket.emit("catnip", "bellissimo");
+    let userId = socket.request.session.userId;
+
+    if (!userId) {
+        return socket.disconnect(true);
+    }
+
+    onlineUsers[socketId] = userId;
+
+    let arrayOfIds = Object.values(onlineUsers); //!!!!!!!!!!!
+    console.log("ciaooo!");
+
+    db.getUsersIds(arrayOfIds)
+        .then(results => {
+            // goes to person who just connected
+            socket.emit("onlineUsers", results);
+        })
+        .catch(err => {
+            console.log("err in getUsersIds: ", err);
+        });
+
+    if (userId) {
+        return socket.broadcast.emit(userId);
+    }
 });

@@ -13,7 +13,7 @@ const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(reduxPromise))
 );
-
+initSocket(store);
 let component;
 
 if (location.pathname === "/welcome") {
