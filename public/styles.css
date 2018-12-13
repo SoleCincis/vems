@@ -1,13 +1,44 @@
  body {
-  background-color: #acdce0;
+     /* background-color: #acdce0; */
+
+    /* width: 320px;
+    height: 240px;
+     */
+
 }
 
 .welcome-container {
-  border: 2px solid gray;
+  /* border: 2px solid gray;
   background: #58b7ac;
-  padding: 20px;
-}
+  padding: 20px; */
+  background-image: url("/sfondo.png");
+  /* z-index: -0; */
+  min-height: 100vh ;
+  /* min-width: 900px; */
+  background-size: contain;
+  position: relative;
 
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+img.login{
+    position: absolute;
+    width: 300px;
+
+
+    top: 60%;
+    right: 5%;
+
+}
+img.vems{
+    position: absolute;
+    width: 600px;
+
+
+    top: 0%;
+    right: 5%;
+
+}
 .registration-container {
 }
 header{

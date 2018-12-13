@@ -62,6 +62,8 @@ export default class App extends React.Component {
                         showUploader={() => this.showUploader()}
                     />
                     <a href="/logout">logout</a>
+
+                    <a href="/onlineUsers">are my friends here?</a>
                 </header>
                 <BrowserRouter>
                     <div>

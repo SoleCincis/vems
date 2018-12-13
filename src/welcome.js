@@ -6,17 +6,18 @@ import { Link } from "react-router-dom";
 
 // THIS IS A COMPONENT AND IS ALWAYS WITH CAPITAL LETTER
 export default function Welcome() {
-  return (
-    <div className="welcome-container">
-      <h1>V.E.M.S</h1>
-      <HashRouter>
-        <div>
-          <Route exact path="/" component={Registration} />
-          <Route path="/login" component={Login} />
+    return (
+        <div className="welcome-container">
+            <h1 />
+            <HashRouter>
+                <div>
+                    <Route exact path="/" component={Registration} />
+
+                    <Route path="/login" component={Login} />
+                </div>
+            </HashRouter>
         </div>
-      </HashRouter>
-    </div>
-  );
+    );
 }
 
 //ROUTE = if the url is / , then render registratio if the url id /login then
