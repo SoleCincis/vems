@@ -31,3 +31,16 @@ export async function onlineUsers(users) {
         onlineUsers: users
     };
 }
+export async function userJoined(userId) {
+    // console.log(users);
+    return {
+        type: "USER_JUST_JOINED",
+        userJoined: userId
+    };
+}
+export async function userLeft(userId) {
+    return {
+        type: "USER_LEFT",
+        userLeft: userId
+    };
+}

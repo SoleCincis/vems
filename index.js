@@ -283,7 +283,7 @@ server.listen(8080, function() {
 //2 arguments first is a name and must be a string
 //second is any data that i want to send in my "message" using this method emit
 let onlineUsers = {};
-io.on("connection", socket => {
+io.on("connection", async socket => {
     console.log(`User with socket id ${socket.id} just connected`);
     let socketId = socket.id;
     let userId = socket.request.session.userId;
@@ -306,7 +306,15 @@ io.on("connection", socket => {
             console.log("err in getUsersIds: ", err);
         });
 
-    if (userId) {
-        return socket.broadcast.emit(userId);
+    if (arrayOfIds.filter(id => id == userId).length == 1) {
+        db.getUsersIds([userId]).then(user =>
+            socket.broadcast.emit("userJoined", user[0])
+        );
     }
+    socket.on("disconnect", () => {
+        delete onlineUsers[socketId];
+        if (Object.values(onlineUsers).filter(id => id == userId).length == 0) {
+            io.sockets.emit("userLeft", userId);
+        }
+    });
 });
